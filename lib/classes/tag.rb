@@ -42,7 +42,6 @@ class Tag
     attributes[:cols] ||= @textarea_attr[:cols]
     attributes[:rows] ||= @textarea_attr[:rows]
     attributes[:text] = value
-    puts attributes
     build('textarea', **attributes)
   end
 
@@ -54,8 +53,8 @@ class Tag
 
   def build_label(attributes)
     for_attr = attributes[:name]
-    text = attributes[:name].to_s.capitalize
-    label_attr = { for: for_attr, text: text }
+    label = attributes[:name].to_s.capitalize
+    label_attr = { for: for_attr, text: label }
     build('label', **label_attr)
   end
 
@@ -70,4 +69,5 @@ class Tag
   rescue NoMethodError => e
     raise e.class
   end
+
 end

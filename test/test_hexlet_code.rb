@@ -24,12 +24,19 @@ class TestHexletCode < Minitest::Test
 
   def test_form_with_user_input_not_empty_args
     form = ::HexletCode.form_for(@user, url: '/users') do |f|
-      f.input :name
       f.input :job, as: :text, cols: 20, rows: 40
     end
 
-    assert_equal '<form action="/users" method="post"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><textarea name="job" cols="20" rows="40">hexlet</textarea></form>',
-                 form
+    expected = [
+      '<form action="/users" method="post">',
+      '<label for="name">Name</label>',
+      '<input name="name" type="text" value="rob">',
+      '<label for="job">Job</label>',
+      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
+      '</form>'
+    ]
+
+    assert_equal expected.join, form
   end
 
   def test_user_from_with_label
@@ -39,7 +46,15 @@ class TestHexletCode < Minitest::Test
       f.submit 'Wow'
     end
 
-    assert_equal '<form action="#" method="get" class="hexlet-form"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><textarea name="job" cols="20" rows="40">hexlet</textarea><input type="submit" value="Wow"></form>',
+    expected = [
+      '<form action="#" method="get" class="hexlet-form">',
+      '<label for="name">Name</label>',
+      '<input name="name" type="text" value="rob">',
+      '<label for="job">Job</label><textarea name="job" cols="20" rows="40">hexlet</textarea>',
+      '<input type="submit" value="Wow">',
+      '</form>'
+    ]
+    assert_equal expected,
                  form
   end
 end
