@@ -30,6 +30,8 @@ class Tag
     attributes = { name: argument }.merge(attributes)
     input_value = get_input_data(argument)
     as = attributes.delete(:as) || ''
+    label_attr = { for: attributes.delete(:for) || argument, text: attributes.delete(:text) || argument.capitalize }
+    build attributes.delete(:with_tag) || 'label', **label_attr
 
     if as == :text
       attributes[:cols] = @textarea_attr[:cols] if attributes[:cols].nil?
@@ -39,8 +41,6 @@ class Tag
     else
       attributes[:type] = as.empty? ? 'text' : as
       attributes[:value] = input_value
-      label_attr = { for: attributes.delete(:for) || argument, text: attributes.delete(:text) || argument.capitalize }
-      build attributes.delete(:with_tag) || 'label', **label_attr
       build('input', **attributes)
     end
   end
