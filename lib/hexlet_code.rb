@@ -13,3 +13,14 @@ module HexletCode
     tag.build('form', **attributes) { yield tag if block_given? }
   end
 end
+
+user = Struct::new('User', :name, :job, keyword_init: true)
+@user = user.new name: 'rob', job: 'hexlet'
+
+form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
+  f.input :name, with_tag: 'label', for: 'name', text: "Name"
+  f.input :job
+  f.submit 'Wow'
+end
+
+puts form
