@@ -54,6 +54,6 @@ class Tag
   def get_input_data(argument)
     @data.public_send(argument)
   rescue NoMethodError => e
-    raise "#{e.class}: #{e.message}"
+    raise e.class
   end
 end
