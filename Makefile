@@ -5,4 +5,4 @@ LINTER = rubocop
 install:
 	$(BUNDLE) $(INSTALL_CMD)
 lint:
-    LINTER
+	LINTER
