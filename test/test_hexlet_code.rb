@@ -30,7 +30,7 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: 'text', cols: 20, rows: 40
     end
 
-    assert_equal '<form action="/users" method="post"><input name="name" type="text" value="rob"><textarea name="job" cols="20" rows="40">hexlet</textarea></form>', form
+    assert_equal '<form action="/users" method="post"><label for="name">Name</label><input name="name" type="text" value="rob"><textarea name="job" cols="20" rows="40">hexlet</textarea></form>', form
   end
 
   def test_user_from_with_label

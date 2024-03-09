@@ -16,10 +16,13 @@ class Tag
     attributes_string = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
     @tags << "<#{tag_name} #{attributes_string}"
 
-    @tags << tag_name == 'input' ? ">" : ">\n#{tag_content}"
+    @tags << case tag_name
+             when 'input' then '>'
+             else ">#{tag_content}"
+             end
 
     yield if block_given?
-    @tags << "\n</#{tag_name}>" if tag_name != 'input'
+    @tags << "</#{tag_name}>" if tag_name != 'input'
     @tags.join
   end
 
@@ -27,13 +30,6 @@ class Tag
     attributes = { name: argument }.merge(attributes)
     input_value = get_input_data(argument)
     as = attributes.delete(:as) || ''
-
-    unless attributes[:with_tag].nil?
-      label_attr = { for: attributes.delete(:for) || argument, text: attributes.delete(:text) || argument.capitalize }
-      build attributes[:with_tag], **label_attr
-    end
-
-    attributes.delete(:with_tag)
 
     if as == 'text'
       attributes[:cols] = @textarea_attr[:cols] if attributes[:cols].nil?
@@ -43,6 +39,8 @@ class Tag
     else
       attributes[:type] = as.empty? ? 'text' : as
       attributes[:value] = input_value
+      label_attr = { for: attributes.delete(:for) || argument, text: attributes.delete(:text) || argument.capitalize }
+      build attributes.delete(:with_tag) || 'label', **label_attr
       build('input', **attributes)
     end
   end
