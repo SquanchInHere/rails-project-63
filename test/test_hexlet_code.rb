@@ -13,14 +13,12 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_user_with_url
-    form = ::HexletCode.form_for(@user, url: '/users') do |f|
-    end
+    form = ::HexletCode.form_for(@user, url: '/users')
     assert_equal '<form action="/users" method="post"></form>', form
   end
 
   def test_witout_url_form_for_user
-    form = ::HexletCode.form_for(@user) do |f|
-    end
+    form = ::HexletCode.form_for(@user)
     assert_equal '<form action="#" method="post"></form>', form
   end
 
@@ -36,7 +34,7 @@ class TestHexletCode < Minitest::Test
 
   def test_user_from_with_label
     form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
-      f.input :name, with_tag: 'label', for: 'name', text: 'Name'
+      f.input :name
       f.input :job, as: :text
       f.submit 'Wow'
     end
