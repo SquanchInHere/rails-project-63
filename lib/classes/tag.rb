@@ -31,7 +31,7 @@ class Tag
     input_value = get_input_data(argument)
     as = attributes.delete(:as) || ''
 
-    if as == 'text'
+    if as == :text
       attributes[:cols] = @textarea_attr[:cols] if attributes[:cols].nil?
       attributes[:rows] = @textarea_attr[:rows] if attributes[:rows].nil?
       attributes[:text] = input_value

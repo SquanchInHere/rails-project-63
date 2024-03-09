@@ -19,7 +19,7 @@ user = Struct::new('User', :name, :job, keyword_init: true)
 
 form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
   f.input :name, with_tag: 'label', for: 'name', text: "Name"
-  f.input :job
+  f.input :job, as: :text
   f.submit 'Wow'
 end
 
