@@ -6,3 +6,5 @@ install:
 	$(BUNDLE) $(INSTALL_CMD)
 lint:
 	LINTER
+test:
+	rake test

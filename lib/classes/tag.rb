@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class for building html form
 class Tag
   def initialize(data)
     @data = data
@@ -14,12 +15,10 @@ class Tag
 
     @tags << "<#{tag_name} #{attributes_string}"
 
-    @tags << case tag_name
-             when 'input' then '>'
-             else ">#{tag_content}"
-             end
+    @tags << case tag_name when 'input' then '>' else ">#{tag_content}" end
 
     yield if block_given?
+
     @tags << "</#{tag_name}>" if tag_name != 'input'
     @tags.join
   end
