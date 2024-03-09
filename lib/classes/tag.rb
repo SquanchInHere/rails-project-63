@@ -69,5 +69,4 @@ class Tag
   rescue NoMethodError => e
     raise e.class
   end
-
 end
