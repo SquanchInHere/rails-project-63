@@ -12,7 +12,7 @@ class Tag
       attributes = { action: attributes.delete(:url) }.merge(attributes)
     end
 
-    tag_content = attributes.delete(:content) || ''
+    tag_content = attributes.delete(:text) || ''
     attributes_string = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
     @tags << "<#{tag_name} #{attributes_string}"
 
@@ -32,7 +32,7 @@ class Tag
     as = attributes.delete(:as) || ''
 
     unless attributes[:with_tag].nil?
-      label_attr = { for: argument, content: argument.capitalize }
+      label_attr = { for: argument, text: attributes[:text].nil? ? argument.capitalize : attributes.delete(:text) }
       build attributes[:with_tag], **label_attr
     end
 
@@ -52,10 +52,6 @@ class Tag
 
   def submit(button_name = 'Save')
     build('input', type: 'submit', value: button_name)
-  end
-
-  def label_for_input(input_name, **attributes)
-    build( 'label', **attributes)
   end
 
   private
