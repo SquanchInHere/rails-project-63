@@ -8,6 +8,10 @@ class Tag
   end
 
   def build(tag_name, **attributes)
+    unless attributes[:url].nil?
+      attributes = { action: attributes.delete(:url) }.merge(attributes)
+    end
+
     tag_content = attributes.delete(:content) || ''
     attributes_string = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
     @tags << "<#{tag_name} #{attributes_string}"
@@ -27,17 +31,17 @@ class Tag
     input_value = get_input_data(argument)
     as = attributes.delete(:as) || ''
 
-    unless attributes[:label].nil?
-      label_attr = { for: argument, content: attributes[:label].empty? ? argument.capitalize : attributes[:label] }
-      attributes.delete(:label)
-      label_for_input argument, **label_attr
+    unless attributes[:with_tag].nil?
+      label_attr = { for: argument, content: argument.capitalize }
+      build attributes[:with_tag], **label_attr
     end
+
+    attributes.delete(:with_tag)
 
     if as == 'text'
       attributes[:cols] = @textarea_attr[:cols] if attributes[:cols].nil?
       attributes[:rows] = @textarea_attr[:rows] if attributes[:rows].nil?
       attributes[:content] = input_value
-      puts attributes
       build('textarea', **attributes)
     else
       attributes[:type] = as.empty? ? 'text' : as
