@@ -41,7 +41,7 @@ class Tag
     if as == 'text'
       attributes[:cols] = @textarea_attr[:cols] if attributes[:cols].nil?
       attributes[:rows] = @textarea_attr[:rows] if attributes[:rows].nil?
-      attributes[:content] = input_value
+      attributes[:text] = input_value
       build('textarea', **attributes)
     else
       attributes[:type] = as.empty? ? 'text' : as
