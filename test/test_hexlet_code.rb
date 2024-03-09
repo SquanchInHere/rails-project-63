@@ -35,11 +35,11 @@ class TestHexletCode < Minitest::Test
 
   def test_user_from_with_label
     form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
-      f.input :name, with_tag: 'label'
+      f.input :name, with_tag: 'label', for: 'name', text: "Name"
       f.input :job, with_tag: 'label'
-      f.submit
+      f.submit 'Wow'
     end
 
-    assert_equal '<form action="#" method="get" class="hexlet-form"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><input name="job" type="text" value="hexlet"><input type="submit" value="Save"></form>', form
+    assert_equal '<form action="#" method="get" class="hexlet-form"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><input name="job" type="text" value="hexlet"><input type="submit" value="Wow"></form>', form
   end
 end

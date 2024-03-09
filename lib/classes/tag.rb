@@ -32,7 +32,7 @@ class Tag
     as = attributes.delete(:as) || ''
 
     unless attributes[:with_tag].nil?
-      label_attr = { for: argument, text: attributes[:text].nil? ? argument.capitalize : attributes.delete(:text) }
+      label_attr = { for: attributes.delete(:for) || argument, text: attributes.delete(:text) || argument.capitalize }
       build attributes[:with_tag], **label_attr
     end
 
