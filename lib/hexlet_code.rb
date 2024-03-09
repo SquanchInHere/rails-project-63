@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative "hexlet_code/version"
+require_relative 'hexlet_code/version'
 
 module HexletCode
   autoload :Tag, 'classes/tag'
