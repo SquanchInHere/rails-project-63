@@ -8,9 +8,8 @@ module HexletCode
   class Error < StandardError; end
 
   def self.form_for(user, **attributes)
-    attributes[:method] = 'post' if attributes[:method].nil?
-    attributes[:url] = '#' if attributes[:url].nil?
     tag = Tag.new(user)
-    tag.build('form', **attributes) { yield tag if block_given? }
+    form_attributes = tag.prepare_form_attributes(attributes)
+    tag.build('form', **form_attributes) { yield tag if block_given? }
   end
 end

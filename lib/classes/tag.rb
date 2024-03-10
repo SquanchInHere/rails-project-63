@@ -9,7 +9,6 @@ class Tag
   end
 
   def build(tag_name, **attributes)
-    attributes = { action: attributes.delete(:url) }.merge(attributes) unless attributes[:url].nil?
     tag_content = attributes.delete(:text) || ''
     attributes_string = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
 
@@ -33,6 +32,10 @@ class Tag
 
   def submit(button_name = 'Save')
     build('input', type: 'submit', value: button_name)
+  end
+
+  def prepare_form_attributes(attributes)
+    { action: attributes.delete(:url) || '#', method: attributes.delete(:method) || 'post' }.merge(attributes)
   end
 
   private
