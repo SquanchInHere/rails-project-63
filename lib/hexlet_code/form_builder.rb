@@ -19,7 +19,7 @@ module HexletCode
     end
 
     def label(name)
-      attributes = { for: name, value: name.to_s.capitalize } if attributes.empty?
+      attributes = { for: name, value: name.to_s.capitalize }
       @fields << { type: :label, attributes: attributes }
     end
 
