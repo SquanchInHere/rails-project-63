@@ -18,14 +18,13 @@ module HexletCode
       @fields << prepare_input_attributes(name, attributes)
     end
 
-    def label(name, attributes = {})
+    def label(name)
       attributes = { for: name, value: name.to_s.capitalize } if attributes.empty?
       @fields << { type: :label, attributes: attributes }
     end
 
-    def submit(name = 'Save', attributes = {})
-      attributes[:type] = :submit
-      attributes[:value] = name
+    def submit(name = 'Save')
+      attributes = { type: :submit, value: name}
       @fields << { type: :input, attributes: attributes }
     end
 
@@ -37,18 +36,14 @@ module HexletCode
       input_attribute[:value] = get_input_data(argument)
       input_attribute[:type] = as.empty? ? :text : as if as != :text
       input_attribute.merge!(attributes)
-      as == :text ? textarea_params(attributes, input_attribute) : input_params(attributes, input_attribute)
+      as == :text ? textarea_params(attributes, input_attribute) : { type: :input, name: argument, attributes: input_attribute }
     end
 
     def textarea_params(argument, attributes)
       attributes[:cols] ||= @textarea_size[:cols]
       attributes[:rows] ||= @textarea_size[:rows]
-      attributes = attributes.sort_by { |key, _| %i[name cols rows].index(key) || attributes.length }.to_h
-      { type: :textarea, name: argument, attributes: attributes }
-    end
-
-    def input_params(argument, attributes)
-      { type: :input, name: argument, attributes: attributes }
+      params = attributes.sort_by { |key, _| %i[name cols rows].index(key) || attributes.length }.to_h
+      { type: :textarea, name: argument, attributes: params }
     end
 
     def prepare_form_attributes(attributes)
