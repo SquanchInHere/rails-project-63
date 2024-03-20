@@ -19,13 +19,11 @@ module HexletCode
     end
 
     def label(name)
-      attributes = { for: name, value: name.to_s.capitalize }
-      @fields << { type: :label, attributes: attributes }
+      @fields << { type: :label, attributes: { for: name, value: name.to_s.capitalize } }
     end
 
     def submit(name = 'Save')
-      attributes = { type: :submit, value: name }
-      @fields << { type: :input, attributes: attributes }
+      @fields << { type: :input, attributes: { type: :submit, value: name } }
     end
 
     private
