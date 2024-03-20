@@ -15,7 +15,7 @@ module HexletCode
 
     def input(name, attributes = {})
       label(name)
-      @fields << prepare_attributes(name, attributes)
+      @fields << prepare_input_attributes(name, attributes)
     end
 
     def label(name, attributes = {})
@@ -31,19 +31,24 @@ module HexletCode
 
     private
 
-    def prepare_attributes(argument, attributes)
+    def prepare_input_attributes(argument, attributes)
+      as = attributes.delete(:as) || ''
       input_attribute = { name: argument }
-      type = :input
-      as = attributes.delete(:as)
-      input_attribute[:type] = as || :text if as != :text
       input_attribute[:value] = get_input_data(argument)
+      input_attribute[:type] = as.empty? ? :text : as if as != :text
+      input_attribute.merge!(attributes)
+      as == :text ? textarea_params(attributes, input_attribute) : input_params(attributes, input_attribute)
+    end
 
-      if as == :text
-        type = :textarea
-        input_attribute.merge!(textarea_attributes(attributes))
-      end
+    def textarea_params(argument, attributes)
+      attributes[:cols] ||= @textarea_size[:cols]
+      attributes[:rows] ||= @textarea_size[:rows]
+      attributes = attributes.sort_by { |key, _| %i[name cols rows].index(key) || attributes.length }.to_h
+      { type: :textarea, name: argument, attributes: attributes }
+    end
 
-      { type: type, name: argument, attributes: input_attribute }
+    def input_params(argument, attributes)
+      { type: :input, name: argument, attributes: attributes }
     end
 
     def prepare_form_attributes(attributes)

@@ -8,7 +8,12 @@ module HexletCode
 
     def self.render_html(builder)
       tag = Tag.new
-      tag.build(:form, builder.form_attributes) { builder.fields.each { |v| tag.build(v[:type], v[:attributes]) } }
+      tag.build(:form, builder.form_attributes) do
+        builder.fields.each do |v|
+          value = v[:attributes].delete(:value) || '' if v[:type] != :input
+          tag.build(v[:type], v[:attributes]) { value }
+        end
+      end
     end
   end
 end

@@ -39,12 +39,25 @@ class TestHexletCode < Minitest::Test
 
   def test_user_from_with_label
     form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
-      f.input :job, as: :text
+      f.input :job, as: :text, class: 'user-input'
     end
 
     expected = [
       '<form action="#" method="get" class="hexlet-form">',
-      '<label for="job">Job</label><textarea name="job" cols="20" rows="40">hexlet</textarea>',
+      '<label for="job">Job</label><textarea name="job" cols="20" rows="40" class="user-input">hexlet</textarea>',
+      '</form>'
+    ]
+    assert_equal expected.join, form
+  end
+
+  def test_user_from_with_input
+    form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
+      f.input :name, class: 'user-input'
+    end
+
+    expected = [
+      '<form action="#" method="get" class="hexlet-form">',
+      '<label for="name">Name</label><input name="name" value="rob" type="text" class="user-input">',
       '</form>'
     ]
     assert_equal expected.join, form

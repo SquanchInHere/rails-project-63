@@ -8,12 +8,10 @@ module HexletCode
       @tags = []
     end
 
-    def build(tag_name, attributes = {})
-      tag_content = attributes.delete(:value) || '' if tag_name != :input
+    def build(tag_name, attributes)
       attributes_string = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
-      @tags << "<#{tag_name} #{attributes_string}"
-      @tags << case tag_name when :input then '>' else ">#{tag_content}" end
-      yield if block_given?
+      @tags << "<#{tag_name} #{attributes_string}>"
+      @tags << yield if block_given? && !yield.is_a?(Array)
       @tags << "</#{tag_name}>" if tag_name != :input
       @tags.join
     end
