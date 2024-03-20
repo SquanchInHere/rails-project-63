@@ -24,7 +24,7 @@ module HexletCode
     end
 
     def submit(name = 'Save')
-      attributes = { type: :submit, value: name}
+      attributes = { type: :submit, value: name }
       @fields << { type: :input, attributes: attributes }
     end
 
@@ -36,7 +36,8 @@ module HexletCode
       input_attribute[:value] = get_input_data(argument)
       input_attribute[:type] = as.empty? ? :text : as if as != :text
       input_attribute.merge!(attributes)
-      as == :text ? textarea_params(attributes, input_attribute) : { type: :input, name: argument, attributes: input_attribute }
+      input = { type: :input, name: argument, attributes: input_attribute }
+      as == :text ? textarea_params(attributes, input_attribute) : input
     end
 
     def textarea_params(argument, attributes)
