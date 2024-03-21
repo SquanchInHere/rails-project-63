@@ -20,14 +20,26 @@ An example of using the library to create an HTML form:
 
     `require 'hexlet_code'
 
-    form = HexletCode.form_for(:user, url: '/users') do |f|
-        f.input :name, as: :text
-        f.input :email
+    form = HexletCode.form_for(user, url: '/users') do |f|
+        f.input :name
+        f.input :email, as: :email
+        f.input :bio, as: :text
         f.submit
     end
 
     puts form`
 
+Example of form structure
+
+    `<form action="/users" method="post">
+        <label for="user_name">Name</label>
+        <input name="name" value="john doe" type="text">
+        <label for="email">Email</label>
+        <input name="email" value="johndoe@example.com" type="email">
+        <label for="bio">Bio</label>
+        <textarea name="bio" cols="20" rows="40">Some bio</textarea>
+        <input type="submit" value="Save">
+    </form>`
 
 ## Contributing
 
