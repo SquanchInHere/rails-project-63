@@ -20,7 +20,7 @@ module HexletCode
     end
 
     def submit(name = 'Save', options = {})
-      submit = HexletCode::Inputs::SubmitInput.new({ value: name }.merge({ options: options })).input_body
+      submit = HexletCode::Inputs::SubmitInput.new({ value: name }.merge({ options })).input_body
       @form_body[:submit] = submit
     end
 
@@ -32,7 +32,7 @@ module HexletCode
       input_options = {
         name: argument,
         value: @entity.public_send(argument),
-        type: type,
+        type,
         options: options.except(:as).sort.to_h
       }
 
