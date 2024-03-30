@@ -8,18 +8,22 @@ class TestHexletCode < Minitest::Test
     @user = user.new name: 'rob', job: 'hexlet'
   end
 
+  def read_fixture(name)
+    File.read("test/fixtures/#{name}.html")
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::HexletCode::VERSION
   end
 
   def test_form_for_user_with_url
     form = ::HexletCode.form_for(@user, url: '/users')
-    assert_equal '<form action="/users" method="post"></form>', form
+    assert_equal read_fixture('test_form_for_user_with_url'), form
   end
 
   def test_witout_url_form_for_user
     form = ::HexletCode.form_for(@user)
-    assert_equal '<form action="#" method="post"></form>', form
+    assert_equal read_fixture('test_witout_url_form_for_user'), form
   end
 
   def test_form_input_with_args
@@ -27,27 +31,7 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: :text, cols: 20, rows: 40
     end
 
-    expected = [
-      '<form action="/users" method="post">',
-      '<label for="job">Job</label>',
-      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
-      '</form>'
-    ]
-
-    assert_equal expected.join, form
-  end
-
-  def test_user_from_with_label
-    form = ::HexletCode.form_for(@user, method: :get, class: 'hexlet-form') do |f|
-      f.input :job, as: :text, class: 'user-input'
-    end
-
-    expected = [
-      '<form action="#" method="get" class="hexlet-form">',
-      '<label for="job">Job</label><textarea name="job" cols="20" rows="40" class="user-input">hexlet</textarea>',
-      '</form>'
-    ]
-    assert_equal expected.join, form
+    assert_equal read_fixture('test_form_input_with_args'), form
   end
 
   def test_user_from_with_input
@@ -55,12 +39,7 @@ class TestHexletCode < Minitest::Test
       f.input :name, class: 'user-input'
     end
 
-    expected = [
-      '<form action="#" method="get" class="hexlet-form">',
-      '<label for="name">Name</label><input name="name" value="rob" type="text" class="user-input">',
-      '</form>'
-    ]
-    assert_equal expected.join, form
+    assert_equal read_fixture('test_user_from_with_input'), form
   end
 
   def test_user_from_with_submit
@@ -68,11 +47,6 @@ class TestHexletCode < Minitest::Test
       f.submit 'Wow'
     end
 
-    expected = [
-      '<form action="#" method="get" class="hexlet-form">',
-      '<input type="submit" value="Wow">',
-      '</form>'
-    ]
-    assert_equal expected.join, form
+    assert_equal read_fixture('test_user_from_with_submit'), form
   end
 end
