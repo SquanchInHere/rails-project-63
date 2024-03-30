@@ -13,7 +13,7 @@ This project is a library for generating HTML forms in Ruby.
 
 Add to the application's Gemfile by executing:
 
-    gem 'hexlet_code', '~> 0.3', github: 'SquanchInHere/rails-project-63'
+    gem 'hexlet_code', '~> 0.4', github: 'SquanchInHere/rails-project-63'
 
 ## Usage
 An example of using the library to create an HTML form:
