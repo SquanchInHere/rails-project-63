@@ -28,7 +28,7 @@ module HexletCode
 
     def prepare_input_attributes(argument, options)
       input_type = options.fetch(:as, 'string')
-      class_name = "#{type.capitalize}Input"
+      class_name = "#{input_type.capitalize}Input"
       input_options = {
         name: argument,
         value: @entity.public_send(argument),
