@@ -19,20 +19,20 @@ module HexletCode
       @form_body[:inputs].concat prepare_input_attributes(name, options)
     end
 
-    def submit(name = 'Save', options = {})
-      submit = HexletCode::Inputs::SubmitInput.new({ value: name }.merge({ options })).input_body
+    def submit(name = 'Save', attributes = {})
+      submit = HexletCode::Inputs::SubmitInput.new({ value: name }.merge({ options: attributes })).input_body
       @form_body[:submit] = submit
     end
 
     private
 
     def prepare_input_attributes(argument, options)
-      type = options.fetch(:as, 'string')
+      input_type = options.fetch(:as, 'string')
       class_name = "#{type.capitalize}Input"
       input_options = {
         name: argument,
         value: @entity.public_send(argument),
-        type,
+        type: input_type,
         options: options.except(:as).sort.to_h
       }
 
