@@ -6,7 +6,6 @@ module HexletCode
   module Inputs
     # Base inputs class
     class BaseInput
-
       def initialize(input)
         @input = input
       end
