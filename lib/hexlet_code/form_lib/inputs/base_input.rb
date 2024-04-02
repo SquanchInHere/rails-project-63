@@ -6,7 +6,6 @@ module HexletCode
   module Inputs
     # Base inputs class
     class BaseInput
-      autoload :InputLabel, 'hexlet_code/form_tags/inputs/tags/label/input_label'
 
       def initialize(input)
         @input = input
