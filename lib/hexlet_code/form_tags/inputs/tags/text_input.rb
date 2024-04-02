@@ -6,18 +6,14 @@ module HexletCode
   module Inputs
     # Text area prepare input
     class TextInput < BaseInput
-      # Default textarea COLS size
       COLS = 20
-
-      # Default textarea ROWS size
       ROWS = 40
 
       private
 
-      # Prepare textarea attributes
       def input
         [
-          input_label,
+          label_body,
           {
             tag: :textarea,
             value: @input[:value],
@@ -26,7 +22,6 @@ module HexletCode
         ]
       end
 
-      # Textarea options prepare
       def prepare_options(options)
         {
           name: @input[:name],

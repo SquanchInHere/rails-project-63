@@ -10,10 +10,9 @@ module HexletCode
 
       private
 
-      # Prepare inputs attributes
       def input
         [
-          input_label,
+          label_body,
           {
             tag: :input,
             options: prepare_options(@input[:options])
@@ -21,7 +20,6 @@ module HexletCode
         ]
       end
 
-      # Prepare inputs options
       def prepare_options(options)
         {
           name: @input[:name],

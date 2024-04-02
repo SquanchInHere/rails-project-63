@@ -20,8 +20,7 @@ module HexletCode
     end
 
     def submit(name = 'Save', attributes = {})
-      submit = HexletCode::Inputs::SubmitInput.new({ value: name }.merge({ options: attributes })).input_body
-      @form_body[:submit] = submit
+      @form_body[:submit][:options] = { type: :submit, value: name }.merge(attributes)
     end
 
     private

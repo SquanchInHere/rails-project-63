@@ -3,15 +3,11 @@
 module HexletCode
   # Forms attributes
   class Form
-    # default form actions
     ACTION = '#'
-
-    # default form method
     METHOD = 'post'
 
     attr_reader :tag, :options
 
-    # prepare form options
     def initialize(options)
       @tag = :form
       @options = {

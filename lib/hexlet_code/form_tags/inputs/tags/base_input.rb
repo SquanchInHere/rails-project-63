@@ -12,16 +12,20 @@ module HexletCode
         @input = input
       end
 
-      # Return inputs hash
       def input_body
         input
       end
 
       private
 
-      # Get Label options for input
-      def input_label
-        InputLabel.new(@input).label_body
+      def label_body
+        {
+          tag: :label,
+          value: @input[:name].to_s.capitalize,
+          options: {
+            for: @input[:name]
+          }
+        }
       end
     end
   end
