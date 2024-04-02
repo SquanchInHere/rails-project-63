@@ -17,14 +17,3 @@ module HexletCode
     FormRenderer.render_html(form_builder.form_body)
   end
 end
-
-user = Struct.new('User', :name, :job, keyword_init: true)
-user = user.new name: 'rob', job: 'hexlet'
-
-form = ::HexletCode.form_for(user, url: '/users') do |f|
-  f.input :job, as: :text, cols: 200, rows: 40
-  f.input :name
-  f.submit 'Saves', class: 'form-button'
-end
-
-puts form
